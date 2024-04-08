@@ -14,9 +14,16 @@ const unknownEndpointHandler = (request, response, next) => {
 
 }
 
-const errorHandler = () => {
+const errorHandler = (error, request, response, next) => {
     logger.error(error.name)
 
+    if (error.name === 'CastError') {
+        return response.status(400).json({ error: "malformatted id" })
+    }
+
+    if (error.name === 'ValidationError') {
+        return response.status(400).json({ error: error.message })
+    }
     next(error)
 }
 
