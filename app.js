@@ -8,6 +8,7 @@ const config = require('./utils/config')
 const middleware = require('./utils/middleware')
 
 const ticketsRouter = require('./controllers/tickets')
+const usersRouter = require('./controllers/users')
 
 mongoose.set('strictQuery', false)
 
@@ -23,6 +24,7 @@ app.use(express.json())
 app.use(middleware.requestLogger)
 
 app.use('/api/tickets', ticketsRouter)
+app.use('/api/users', usersRouter)
 
 app.use(middleware.unknownEndpointHandler)
 app.use(middleware.errorHandler)
