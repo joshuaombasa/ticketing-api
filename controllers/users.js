@@ -1,6 +1,7 @@
-const { Error } = require('mongoose')
 const User = require('../models/user')
 const usersRouter = require('express').Router()
+const bcrypt = require('bcrypt')
+const jwt = require('json-web-token')
 
 usersRouter.get('/', async (request, response, next) => {
     try {
@@ -24,7 +25,8 @@ usersRouter.get('/:id', async (request, response, next) => {
 })
 
 usersRouter.post('/', async (request, response, next) => {
-    const { name, username, email, passwordHash, isAdmin } = request.body
+    const { name, username, email, password, isAdmin } = request.body
+    const passwordHash = await bcrypt.hash(password,10)
     const userObject = new User({ name, username, email, passwordHash, isAdmin })
 
     try {
