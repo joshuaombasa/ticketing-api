@@ -26,7 +26,7 @@ usersRouter.get('/:id', async (request, response, next) => {
 
 usersRouter.post('/', async (request, response, next) => {
     const { name, username, email, password, isAdmin } = request.body
-    const passwordHash = await bcrypt.hash(password,10)
+    const passwordHash = await bcrypt.hash(password, 10)
     const userObject = new User({ name, username, email, passwordHash, isAdmin })
 
     try {
